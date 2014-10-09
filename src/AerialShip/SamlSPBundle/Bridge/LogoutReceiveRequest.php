@@ -72,7 +72,7 @@ class LogoutReceiveRequest extends LogoutBase implements RelyingPartyInterface {
         }
 
         $logoutRequest = $this->receiveRequest($request);
-        $serviceInfo = $this->getServiceInfo($logoutRequest);
+        $serviceInfo = $this->getServiceInfo($logoutRequest, $request);
         $this->validateLogoutRequest($serviceInfo, $logoutRequest);
         $arrStates = $this->getSSOState($serviceInfo, $logoutRequest->getNameID()->getValue(), $logoutRequest->getSessionIndex());
         $this->deleteSSOState($arrStates);
@@ -140,11 +140,13 @@ class LogoutReceiveRequest extends LogoutBase implements RelyingPartyInterface {
      * @return ServiceInfo|null
      * @throws RuntimeException
      */
-    protected function getServiceInfo(LogoutRequest $logoutRequest) {
+    protected function getServiceInfo(LogoutRequest $logoutRequest, Request $request) {
         $serviceInfo = $this->serviceInfoCollection->findByIDPEntityID($logoutRequest->getIssuer());
         if (!$serviceInfo) {
             throw new RuntimeException('Got logout request from unknown IDP: ' . $logoutRequest->getIssuer());
         }
+
+        $serviceInfo->getSpProvider()->setRequest($request);
 
         return $serviceInfo;
     }

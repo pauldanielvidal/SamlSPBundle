@@ -1,5 +1,5 @@
 {
-    "name": "aerialship/saml-sp-bundle",
+    "name": "nasajon/saml-sp-bundle",
     "license": "MIT",
     "type": "project",
     "description": "Symfony2 SAML2 authentication bundle",
@@ -24,5 +24,12 @@
         "bin-dir": "bin"
     },
     "prefer-stable": true,
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "repositories": [
+        
+        {
+            "type": "git",
+            "url": "http://github.com/Nasajon/SamlSPBundle"
+        }
+    ]
 }

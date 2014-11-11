@@ -123,10 +123,8 @@ class LogoutReceiveRequest extends LogoutBase implements RelyingPartyInterface
 
         if ($bindingResponse instanceof PostResponse) {
             return new Response($bindingResponse->render());
-        } else {
-            if ($bindingResponse instanceof RedirectResponse) {
-                return new RedirectResponse($bindingResponse->getDestination());
-            }
+        } elseif ($bindingResponse instanceof RedirectResponse) {
+            return new RedirectResponse($bindingResponse->getDestination());
         }
 
         $xml = $context->getDocument()->saveXML();

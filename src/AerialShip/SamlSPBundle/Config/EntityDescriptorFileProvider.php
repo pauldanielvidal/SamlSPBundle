@@ -5,6 +5,7 @@ namespace AerialShip\SamlSPBundle\Config;
 use AerialShip\LightSaml\Model\Metadata\EntitiesDescriptor;
 use AerialShip\LightSaml\Model\Metadata\EntityDescriptor;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 
 class EntityDescriptorFileProvider implements EntityDescriptorProviderInterface
@@ -33,6 +34,9 @@ class EntityDescriptorFileProvider implements EntityDescriptorProviderInterface
      * @throws \InvalidArgumentException
      */
     public function setFilename($filename) {
+        if (stripos($filename, 'http') !== false) {
+            $filename = $this->getSavedFileFromUrl($filename);
+        }
         if ($filename && $filename[0] == '@') {
             $filename = $this->kernel->locateResource($filename);
         }
@@ -76,6 +80,62 @@ class EntityDescriptorFileProvider implements EntityDescriptorProviderInterface
             $this->load();
         }
         return $this->entityDescriptor;
+    }
+
+
+    protected function getSavedFileFromUrl($url)
+    {
+        $fs = new Filesystem();
+        $cacheDir = $this->kernel->getCacheDir();
+
+        $filename = sprintf('%s/%s.file', $cacheDir, preg_replace("/((\W+)|\W)/", "-", $url));
+        $isFileValid = false;
+        $minTimestamp = new \DateTime();
+        $minTimestamp->modify('-1 day');
+
+        if ($fs->exists($filename)) {
+            $fileTimestamp = new \DateTime();
+            $fileTimestamp->setTimestamp(filemtime($filename));
+            // set isFileValid = true if one day has passed
+            if ($minTimestamp <= $fileTimestamp) {
+                $isFileValid = true;
+            }
+        }
+
+        // get and dump file if not exists or one day passed
+        if (!$isFileValid) {
+            $temp = $this->getFileFromUrl($url);
+            $fs->dumpFile($filename, $temp);
+        }
+
+        return $filename;
+    }
+
+    protected function getFileFromUrl($url)
+    {
+        // Create a cURL handle
+        $ch = curl_init($url);
+
+        // set cURL options
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_SSLVERSION, 3);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
+        // Execute the handle and also collect if any error
+        $result    = curl_exec($ch);
+        $curlErrno = curl_errno($ch);
+
+        // close cURL handle
+        curl_close($ch);
+
+        if ($curlErrno > 0) {
+            throw new \InvalidArgumentException('Specified file does not exist at url: '.$url);
+        }
+
+        return $result;
     }
 
 

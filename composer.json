@@ -1,5 +1,5 @@
 {
-    "name": "insead-asim/saml-sp-bundle",
+    "name": "aerialship/saml-sp-bundle",
     "license": "MIT",
     "type": "project",
     "description": "Symfony2 SAML2 authentication bundle",
@@ -26,10 +26,9 @@
     "prefer-stable": true,
     "minimum-stability": "dev",
     "repositories": [
-        
         {
             "type": "git",
-            "url": "http://github.com/INSEAD-asim/SamlSPBundle"
+            "url": "https://github.com/INSEAD-asim/SamlSPBundle.git"
         }
     ]
 }

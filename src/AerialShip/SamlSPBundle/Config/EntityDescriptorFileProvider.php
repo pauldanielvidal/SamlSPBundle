@@ -90,23 +90,44 @@ class EntityDescriptorFileProvider implements EntityDescriptorProviderInterface
 
         // cache the file for one day
         $filename = sprintf('%s/%s.file', $cacheDir, preg_replace("/((\W+)|\W)/", "-", $url));
-        $isFileValid = false;
-        $minTimestamp = new \DateTime();
-        $minTimestamp->modify('-1 day');
+        $hasCachedFile = false;
+        $isValidCached = false;
+        $maxTimestamp = new \DateTime();
+        $maxTimestamp->modify('-1 day');
 
         if ($fs->exists($filename)) {
+            $hasCachedFile = true;
+            $isValidCached = true;
             $fileTimestamp = new \DateTime();
             $fileTimestamp->setTimestamp(filemtime($filename));
-            // set isFileValid = true if one day has passed
-            if ($minTimestamp <= $fileTimestamp) {
-                $isFileValid = true;
+            // set isCachedValid = false if one day has passed
+            if ($maxTimestamp > $fileTimestamp) {
+                $isValidCached = false;
             }
         }
 
-        // get and dump file if not exists or one day passed
-        if (!$isFileValid) {
-            $temp = $this->getFileFromUrl($url);
-            $fs->dumpFile($filename, $temp);
+        // trying to get and dump file if not exists or one day passed
+        if (!$isValidCached) {
+            try {
+                $temp = $this->getFileFromUrl($url);
+
+                // check if file is valid xml else throw error
+                $isValidXml = @simplexml_load_string($temp);
+                if ($isValidXml === false) {
+                    throw new \InvalidArgumentException('Specified file is not valid xml at url: '.$url);
+                }
+
+                // dump fresh file
+                $fs->dumpFile($filename, $temp);
+
+            } catch (\InvalidArgumentException $e) {
+                // return cached file in case of error else throw final error
+                if ($hasCachedFile) {
+                    return $filename;
+                } else {
+                    throw new \InvalidArgumentException('Cached file does not exist for specified url: '.$url, 0, $e);
+                }
+            }
         }
 
         return $filename;

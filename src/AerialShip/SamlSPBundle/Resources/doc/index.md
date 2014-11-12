@@ -164,7 +164,7 @@ security:
                 services:
                     somename:
                         idp:
-                            file: "@AcmeSamlBundle/Resources/idp-FederationMetadata.xml"
+                            metadata_path: "@AcmeSamlBundle/Resources/idp-FederationMetadata.xml"
                         sp:
                             config:
                                 entity_id: https://mysite.com/
@@ -203,7 +203,7 @@ aerialship_saml_sp_bundle:
 Step 7: Exchange metadata
 -------------------------
 
-Download your SP metadata by visiting the (configurable) URL `/saml/sp/FederationMetadata.xml` and send the file to the IdP. Save the IdP metadata in your bundle at the configured location (e.g. `@AcmeSamlBundle/Resources/idp-FederationMetadata.xml`).
+Download your SP metadata by visiting the (configurable) URL `/saml/sp/FederationMetadata.xml` and send the file to the IdP. Save the IdP metadata in your bundle at the configured location (e.g. `@AcmeSamlBundle/Resources/idp-FederationMetadata.xml`) or provide url of metadata.
 
 
 Next Steps

@@ -49,7 +49,7 @@ class SamlSpFactory extends AbstractFactory
                     ->children()
                         ->arrayNode('idp')->isRequired()
                             ->children()
-                                ->scalarNode('file')->end()
+                                ->scalarNode('metadata_path')->end()
                                 ->scalarNode('entity_id')->end()
                                 ->scalarNode('id')->end()
                             ->end()
@@ -206,8 +206,8 @@ class SamlSpFactory extends AbstractFactory
         } else {
             $service = new DefinitionDecorator('aerial_ship_saml_sp.idp_entity_descriptor_provider');
             $container->setDefinition($serviceID, $service);
-            if (isset($config['file'])) {
-                $service->addMethodCall('setFilename', array($config['file']));
+            if (isset($config['metadata_path'])) {
+                $service->addMethodCall('setFilename', array($config['metadata_path']));
                 if (isset($config['entity_id'])) {
                     $service->addMethodCall('setEntityId', array($config['entity_id']));
                 }

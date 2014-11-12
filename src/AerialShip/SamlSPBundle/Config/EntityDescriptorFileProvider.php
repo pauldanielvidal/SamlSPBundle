@@ -88,6 +88,7 @@ class EntityDescriptorFileProvider implements EntityDescriptorProviderInterface
         $fs = new Filesystem();
         $cacheDir = $this->kernel->getCacheDir();
 
+        // cache the file for one day
         $filename = sprintf('%s/%s.file', $cacheDir, preg_replace("/((\W+)|\W)/", "-", $url));
         $isFileValid = false;
         $minTimestamp = new \DateTime();

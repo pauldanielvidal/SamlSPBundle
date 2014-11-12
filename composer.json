@@ -1,5 +1,5 @@
 {
-    "name": "aerialship/saml-sp-bundle",
+    "name": "insead-asim/saml-sp-bundle",
     "license": "MIT",
     "type": "project",
     "description": "Symfony2 SAML2 authentication bundle",

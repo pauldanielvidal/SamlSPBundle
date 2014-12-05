@@ -164,7 +164,7 @@ security:
                 services:
                     somename:
                         idp:
-                            metadata_path: "@AcmeSamlBundle/Resources/idp-FederationMetadata.xml"
+                            file: "@AcmeSamlBundle/Resources/idp-FederationMetadata.xml"
                         sp:
                             config:
                                 entity_id: https://mysite.com/

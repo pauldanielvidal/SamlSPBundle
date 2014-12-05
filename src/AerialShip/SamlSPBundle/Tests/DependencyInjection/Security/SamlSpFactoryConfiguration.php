@@ -60,7 +60,7 @@ class SamlSpFactoryConfiguration implements ConfigurationInterface
             'services' => array(
                 'aaa' => array(
                     'idp' => array(
-                        'metadata_path' => 'name.xml'
+                        'file' => 'name.xml'
                     ),
                     'sp' => array(
                         'config' => array(

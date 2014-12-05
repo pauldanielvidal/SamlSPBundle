@@ -26,8 +26,8 @@ security.xml
                                 # must implement EntityDescriptorProviderInterface
                                 id: my.idp.ed.provider.service.id
 
-                                # or use builtin EntityDescriptorFileProvider with specific metadata path (file or url)
-                                metadata_path: "@AerialShipSamlTestBundle/Resources/azure-FederationMetadata.xml"
+                                # or use builtin EntityDescriptorFileProvider with specific file (path or url)
+                                file: "@AerialShipSamlTestBundle/Resources/azure-FederationMetadata.xml"
                                 # in case of EntitiesDescriptor entity_id of the EntityDescriptor to use
                                 entity_id: https://some.com/entity_id
                             sp:

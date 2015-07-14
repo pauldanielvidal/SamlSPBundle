@@ -92,7 +92,8 @@ class EntityDescriptorFileProvider implements EntityDescriptorProviderInterface
         $cacheDir = $this->kernel->getCacheDir();
 
         // cache the file for one day
-        $filename = sprintf('%s/%s.file', $cacheDir, preg_replace("/((\W+)|\W)/", "-", $url));
+        $filename = strtolower(preg_replace("/((\W+)|\W)/", "-", $url));
+        $filename = sprintf('%s/%s.file', $cacheDir, $filename);
         $hasCachedFile = false;
         $isValidCached = false;
         $maxTimestamp = new \DateTime();

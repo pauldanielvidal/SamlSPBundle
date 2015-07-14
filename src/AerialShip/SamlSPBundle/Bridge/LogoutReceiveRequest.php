@@ -24,18 +24,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Http\HttpUtils;
 
-
 class LogoutReceiveRequest extends LogoutBase implements RelyingPartyInterface
 {
     /** @var BindingManager */
     protected $bindingManager;
 
-    /** @var ServiceInfoCollection */
+    /** @var ServiceInfoCollection  */
     protected $serviceInfoCollection;
 
     /** @var SecurityContextInterface */
     protected $securityContext;
-
 
 
     public function __construct(
@@ -53,7 +51,7 @@ class LogoutReceiveRequest extends LogoutBase implements RelyingPartyInterface
 
 
     /**
-     * @param Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return bool
      */
     public function supports(Request $request)
@@ -68,10 +66,10 @@ class LogoutReceiveRequest extends LogoutBase implements RelyingPartyInterface
     }
 
     /**
-     * @param Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @throws \RuntimeException
      * @throws \InvalidArgumentException if cannot manage the Request
-     * @return Response|SamlSpInfo|null
+     * @return \Symfony\Component\HttpFoundation\Response|SamlSpInfo|null
      */
     public function manage(Request $request)
     {
@@ -149,6 +147,7 @@ class LogoutReceiveRequest extends LogoutBase implements RelyingPartyInterface
         return $logoutRequest;
     }
 
+
     /**
      * @param LogoutRequest $logoutRequest
      * @param Request $request
@@ -168,7 +167,7 @@ class LogoutReceiveRequest extends LogoutBase implements RelyingPartyInterface
     }
 
     /**
-     * @param ServiceInfo $serviceInfo
+     * @param \AerialShip\SamlSPBundle\Config\ServiceInfo $serviceInfo
      * @param LogoutRequest $logoutRequest
      * @throws \RuntimeException
      */
@@ -194,7 +193,4 @@ class LogoutReceiveRequest extends LogoutBase implements RelyingPartyInterface
 
         $signature->validateMulti($keys);
     }
-
-
-
-} 
+}

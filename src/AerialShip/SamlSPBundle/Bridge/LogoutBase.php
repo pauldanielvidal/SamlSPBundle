@@ -3,11 +3,10 @@
 namespace AerialShip\SamlSPBundle\Bridge;
 
 use AerialShip\SamlSPBundle\Config\ServiceInfo;
-use AerialShip\SamlSPBundle\State\SSO\SSOState;
+use AerialShip\SamlSPBundle\Model\SSOState;
 use AerialShip\SamlSPBundle\State\SSO\SSOStateStoreInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\HttpUtils;
-
 
 class LogoutBase
 {
@@ -71,5 +70,4 @@ class LogoutBase
             $this->ssoStore->remove($state);
         }
     }
-
 } 

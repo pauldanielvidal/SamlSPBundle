@@ -148,7 +148,7 @@ class EntityDescriptorFileProvider implements EntityDescriptorProviderInterface
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         //curl_setopt($ch, CURLOPT_SSLVERSION, 3);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        //curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
         // Execute the handle and also collect if any error
         $result    = curl_exec($ch);

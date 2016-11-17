@@ -1,6 +1,19 @@
 SamlSPBundle
 ============
 
+NEW VERSION
+-----------
+
+> **New version of this library is available in it's own organization 
+> [lightsaml/sp-bundle](https://github.com/lightSAML/SpBundle)** supporting Symfony from version 2.3 
+> to version 3.0. This old version of lightsaml will not be upgraded to support symfony versions newer then 2.7. 
+> More details on new version on [LightSAML website](http://www.lightsaml.com/SP-Bundle/).
+>
+> It is recommended to upgrade to the new lightsaml/lightsaml version. Still, this old library will be kept 
+> maintained for a while with bug fixes, but no new features will be added.
+
+
+
 [![Build Status](https://travis-ci.org/aerialship/SamlSPBundle.png)](https://travis-ci.org/aerialship/SamlSPBundle)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/aerialship/SamlSPBundle/badges/quality-score.png?s=ea75a9e869bb19543fb0ab9530f63010d8a8da95)](https://scrutinizer-ci.com/g/aerialship/SamlSPBundle/)
 [![Code Coverage](https://scrutinizer-ci.com/g/aerialship/SamlSPBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/aerialship/SamlSPBundle/?branch=master)
